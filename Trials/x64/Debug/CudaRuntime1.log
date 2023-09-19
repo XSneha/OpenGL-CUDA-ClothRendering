@@ -1,0 +1,46 @@
+﻿  Compiling CUDA source file kernel.cu...
+  
+  C:\Users\Atharva CS\source\repos\CudaRuntime1>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\bin\HostX86\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\include"  -G   --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static  -g  -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "C:\Users\Atharva CS\source\repos\CudaRuntime1\kernel.cu" 
+c:\users\atharva cs\source\repos\cudaruntime1\kernel.cu(116): warning : variable "mi" was declared but never referenced
+  
+  kernel.cu
+  Try1.cpp
+  Try2.cpp
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try2.cpp(316,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try2.cpp(317,21): warning C4018: '<': signed/unsigned mismatch
+  Try3.cpp
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try3.cpp(322,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try3.cpp(323,21): warning C4018: '<': signed/unsigned mismatch
+  Try4.cpp
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try4.cpp(70,13): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try4.cpp(289,9): warning C4101: 'j': unreferenced local variable
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try4.cpp(289,6): warning C4101: 'i': unreferenced local variable
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try4.cpp(534,30): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try4.cpp(536,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try4.cpp(538,37): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Try5.cpp
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try5.cpp(96,13): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try5.cpp(555,30): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try5.cpp(557,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Atharva CS\source\repos\CudaRuntime1\Try5.cpp(559,37): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
+Try5.obj : error LNK2005: "struct float3 __cdecl operator*(struct float3 const &,float)" (??D@YA?AUfloat3@@AEBU0@M@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl operator*(float,struct float3 const &)" (??D@YA?AUfloat3@@MAEBU0@@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl operator-(struct float3 const &,struct float3 const &)" (??G@YA?AUfloat3@@AEBU0@0@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl operator+(struct float3 const &,struct float3 const &)" (??H@YA?AUfloat3@@AEBU0@0@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl operator/(struct float3 const &,float)" (??K@YA?AUfloat3@@AEBU0@M@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl operator/(float,struct float3 const &)" (??K@YA?AUfloat3@@MAEBU0@@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "void __cdecl GetPresetData(class vmath::Tvec4<float> *)" (?GetPresetData@@YAXPEAV?$Tvec4@M@vmath@@@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl cross(struct float3 const &,struct float3 const &)" (?cross@@YA?AUfloat3@@AEBU1@0@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "void __cdecl launchCPUKernel(unsigned int,unsigned int,struct float3)" (?launchCPUKernel@@YAXIIUfloat3@@@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "float __cdecl length(struct float3 const &)" (?length@@YAMAEBUfloat3@@@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl make_float3(struct float4 const &)" (?make_float3@@YA?AUfloat3@@AEBUfloat4@@@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float3 __cdecl normalize(struct float3 const &)" (?normalize@@YA?AUfloat3@@AEBU1@@Z) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float4 * gvel" (?gvel@@3PAUfloat4@@A) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float4 * gpos" (?gpos@@3PAUfloat4@@A) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float4 * gvel1" (?gvel1@@3PAUfloat4@@A) already defined in Try4.obj
+Try5.obj : error LNK2005: "struct float4 * gpos1" (?gpos1@@3PAUfloat4@@A) already defined in Try4.obj
+Try5.obj : error LNK2005: "bool gbWind" (?gbWind@@3_NA) already defined in Try4.obj
+Try5.obj : error LNK2005: "float cAngle" (?cAngle@@3MA) already defined in Try4.obj
+     Creating library C:\Users\Atharva CS\source\repos\CudaRuntime1\x64\Debug\CudaRuntime1.lib and object C:\Users\Atharva CS\source\repos\CudaRuntime1\x64\Debug\CudaRuntime1.exp
+C:\Users\Atharva CS\source\repos\CudaRuntime1\x64\Debug\CudaRuntime1.exe : fatal error LNK1169: one or more multiply defined symbols found

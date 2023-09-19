@@ -1,0 +1,4 @@
+﻿  CUDAClothRender.cpp
+E:\RTR\GITHUB\OpenGL-CUDA-ClothRendering\vmath.h(1052,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\RTR\GITHUB\OpenGL-CUDA-ClothRendering\vmath.h(1069,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  CudaRuntime1.vcxproj -> E:\RTR\GITHUB\OpenGL-CUDA-ClothRendering\x64\Debug\CudaRuntime1.exe

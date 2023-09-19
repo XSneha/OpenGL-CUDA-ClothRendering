@@ -1,0 +1,2 @@
+C:\Users\Atharva CS\source\repos\CudaRuntime1\x64\Debug\CudaRuntime1.exe
+E:\RTR\GITHUB\OpenGL-CUDA-ClothRendering\x64\Debug\CudaRuntime1.exe
