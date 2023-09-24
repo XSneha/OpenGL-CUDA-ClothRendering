@@ -1,0 +1,6 @@
+#include "resource.h"
+
+IDBITMAP_CLOTH1		BITMAP		cloth_tex1.bmp
+IDBITMAP_CLOTH2		BITMAP		cloth_tex2.bmp
+IDWAV_THEME         WAVE        ChopinNocturne.wav
+
