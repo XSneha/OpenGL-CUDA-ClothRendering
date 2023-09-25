@@ -1,4 +1,5 @@
 ﻿#include "Global.h"
+#include<vector>
 
 //Global file
 FILE* gpFile = NULL;
@@ -17,8 +18,8 @@ int wWidth;
 int wHeight;
 
 // Global Variables
-const int gMeshWidth = 8*6;
-const int gMeshHeight = 8*6;
+const int gMeshWidth = 4*4;
+const int gMeshHeight = 4*4;
 const int gMeshTotal = gMeshWidth * gMeshHeight;
 
 //mesh positions and velocities
@@ -89,12 +90,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	wndclass.cbWndExtra = 0;
 	wndclass.lpfnWndProc = WndProc;
 	wndclass.hInstance = hInstance;
-	wndclass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(NULL));
+	wndclass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(MYICON));
 	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wndclass.lpszClassName = szClassName;
 	wndclass.lpszMenuName = NULL;
-	wndclass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(NULL));
+	wndclass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(MYICON));
 
 	// register class
 	RegisterClassEx(&wndclass);
@@ -623,11 +624,9 @@ int initialize(void)
 			float fi = (float)i / (float)gMeshWidth;
 
 			initial_normals[n] = vec3(0.0f);
-
 			// texture coords
-			initial_texcoords[n][0] = fi * 5.0f;
-			initial_texcoords[n][1] = fj * 5.0f;
-
+			initial_texcoords[n][0] = fi * 1.0f;
+			initial_texcoords[n][1] = fj * 1.0f;
 			n++;
 
 		}
@@ -752,7 +751,7 @@ int initialize(void)
 
 	// textures
 	glEnable(GL_TEXTURE_2D);
-	loadTexture(&texCloths[0], MAKEINTRESOURCE(IDBITMAP_CLOTH1));
+	loadTexture(&texCloths[0], MAKEINTRESOURCE(IDBITMAP_CLOTH2));
 	loadTexture(&texCloths[1], MAKEINTRESOURCE(IDBITMAP_CLOTH2));
 
 	// initialize font lib
@@ -789,7 +788,7 @@ void display(void)
 {
 	void uninitialize(void);
 	void DrawCloth(void);
-	static float alpha = 0.0f;
+	//static float alpha = 0.0f;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	DrawCloth();
 	SwapBuffers(ghDC);
@@ -902,12 +901,13 @@ void launchCPUKernel( int width,  int height, float3 wind)
 	vec3 make_vec3(float4);
 	vec3 make_vec3(float*);
 
+
 	//mass
 	const float m = 3.0f;
 	//time
 	const float t = 50.0f * 4;
 	
-	const float k = 6000.0f;
+	const float k = 600.0f;
 	const float c = 0.55f;
 	const float rest_length = 1.00f;
 	const float rest_length_diag = 1.41f;
@@ -1149,7 +1149,7 @@ __global__ void cloth_kernel(float4* pos1, float4* pos2, float4* vel1, float4* v
 
 	if (idx >= width * height) return;
 
-	const float m = 5.0f;
+	const float m = 3.0f;
 	const float t = 0.000008 * 4;
 	const float k = 6000.0;
 	const float c = 0.55;
@@ -1316,7 +1316,7 @@ __global__ void cloth_normals(float4* pos, float3* norm, unsigned int width, uns
 
 void launchCUDAKernel(float4* pos1, float4* pos2, float4* vel1, float4* vel2, unsigned int meshWidth, unsigned int meshHeight, float3* norm, float3 wind, float xOffset)
 {
-	dim3 block(16, 16, 1);
+	dim3 block(8, 8, 1);
 	dim3 grid(meshWidth / block.x, meshHeight / block.y, 1);
 
 	for (int i = 0; i < 400; i++)
@@ -1346,7 +1346,7 @@ void reset()
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_gpu[2]);
 	glBufferData(GL_ARRAY_BUFFER, gMeshTotal * 4 * sizeof(float), vel11, GL_DYNAMIC_DRAW);
-}
+}  
 
 void GetInitialPositions(vec4* pos)
 {
@@ -1363,7 +1363,8 @@ void GetInitialPositions(vec4* pos)
 			pos[n] = vec4((fi - 0.5f) * (float)gMeshWidth,20.0f,(fj - 0.5f) * (float)gMeshHeight,1.0);
 			
 			// stable points
-			if (j == (gMeshHeight - 1) && (i % 12 == 0 || i == 47))
+			//&& (i % 12 == 0 || i == 47)
+			if (j == (gMeshHeight - 1) )
 				vel11[n].w = -1.0f;
 
 			pos1[n] = make_float4(pos[n][0], pos[n][1], pos[n][2], pos[n][3]);
@@ -1377,6 +1378,7 @@ void DrawCloth(void)
 	// function declarations
 	void launchCUDAKernel(float4*, float4*, float4*, float4*, unsigned int, unsigned int, float3*, float3, float);
 	void launchCPUKernel( int,  int, float3);
+	void cloth();
 	//void RenderText(std::string, mat4, GLfloat, GLfloat, GLfloat, vec3);
 //	mat4 renderOrtho = ortho(0.0f, 1000.0f, 0.0f, 1000.0f * ((float)wHeight / (float)wWidth), -1.0f, 1.0f);
 
@@ -1392,6 +1394,8 @@ void DrawCloth(void)
 
 	mat4 mMatrix = mat4::identity();
 	mMatrix *= rotate(0.0f, 100.0f * sinf(cAngle), 0.0f);
+	mMatrix *= vmath::translate(0.0f,0.5f,-8.0f);
+	mMatrix *= vmath::scale(1.5f, 1.5f, 1.5f);
 
 	mat4 vMatrix = mat4::identity();
 	vMatrix *= lookat(
@@ -1402,6 +1406,34 @@ void DrawCloth(void)
 	glUniformMatrix4fv(glGetUniformLocation(gShaderProgramObject, "u_m_matrix"), 1, GL_FALSE, mMatrix);
 	glUniformMatrix4fv(glGetUniformLocation(gShaderProgramObject, "u_v_matrix"), 1, GL_FALSE, vMatrix);
 	glUniformMatrix4fv(glGetUniformLocation(gShaderProgramObject, "u_p_matrix"), 1, GL_FALSE, perspectiveProjectionMatrix);
+
+	cloth();
+
+	mMatrix = mat4::identity();
+	mMatrix *= rotate(0.0f, 100.0f * sinf(cAngle), 0.0f);
+	mMatrix *= vmath::translate(-25.0f, 0.5f, -8.0f);
+	mMatrix *= vmath::scale(1.5f, 1.5f, 1.5f);
+
+	glUniformMatrix4fv(glGetUniformLocation(gShaderProgramObject, "u_m_matrix"), 1, GL_FALSE, mMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(gShaderProgramObject, "u_v_matrix"), 1, GL_FALSE, vMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(gShaderProgramObject, "u_p_matrix"), 1, GL_FALSE, perspectiveProjectionMatrix);
+
+	cloth();
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	// unuse program
+	glUseProgram(0);
+
+	QueryPerformanceCounter(&end);
+	elapsed.QuadPart = end.QuadPart - start.QuadPart;
+
+	elapsed.QuadPart *= 1000;
+	elapsed.QuadPart /= freq.QuadPart;
+
+}
+
+void cloth() {
 
 	float3 wind = make_float3(0.0f, 0.0f, 0.0f);
 	if (bWind) wind = make_float3(0.0f, 0.5f, 5.0f);
@@ -1587,18 +1619,6 @@ void DrawCloth(void)
 	glCullFace(GL_BACK);
 	glDrawElements(GL_TRIANGLE_STRIP, lines * 2, GL_UNSIGNED_INT, NULL);
 	glBindVertexArray(0);
-
-	//////////////////////////////////////////////////////////////////////////////////////////
-
-	// unuse program
-	glUseProgram(0);
-
-	QueryPerformanceCounter(&end);
-	elapsed.QuadPart = end.QuadPart - start.QuadPart;
-
-	elapsed.QuadPart *= 1000;
-	elapsed.QuadPart /= freq.QuadPart;
-
 }
 
 /* helper functions for float3 */

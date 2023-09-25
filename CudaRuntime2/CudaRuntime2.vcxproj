@@ -74,6 +74,7 @@
     </Link>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
+      <Include>C:/glew-2.1.0/include</Include>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -87,12 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="resource.res" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="rmc_icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

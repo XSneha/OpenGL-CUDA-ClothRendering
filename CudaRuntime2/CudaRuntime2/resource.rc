@@ -1,0 +1,5 @@
+#include "resource.h"
+
+MYICON				ICON		pictures.ico
+IDBITMAP_CLOTH2		BITMAP		cloth_tex2.bmp
+
